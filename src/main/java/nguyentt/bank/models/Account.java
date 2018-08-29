@@ -1,32 +1,31 @@
 package nguyentt.bank.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private BigDecimal balance;
+	
+	@OneToMany(targetEntity=Transaction.class, fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<Transaction> transactions;
-	private String accountNumber;
 	
 	public Account() {
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+		balance = BigDecimal.valueOf(0, 0);
+		transactions = new ArrayList<>();
 	}
 
 	public BigDecimal getBalance() {
@@ -43,14 +42,6 @@ public class Account {
 
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
-	}
-
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
 	}
 	
 }

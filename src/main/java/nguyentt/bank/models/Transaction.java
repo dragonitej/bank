@@ -20,6 +20,12 @@ public class Transaction {
 	
 	
 	public Transaction() {}
+	
+	public Transaction(BigDecimal amount, TransactionType type) {
+		date = new Date();
+		this.amount = amount;
+		this.type = type;
+	}
 
 	public long getId() {
 		return id;

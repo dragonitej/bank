@@ -1,9 +1,11 @@
 package nguyentt.bank.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Client {
@@ -13,9 +15,16 @@ public class Client {
 	private long id;
 	private String login;
 	private String password;
+	
+	@OneToOne(targetEntity = Account.class, cascade = CascadeType.PERSIST)
 	private Account account;
 	
 	public Client() {
+	}
+	public Client(String login, String password) {
+		this.login = login;
+		this.password = password;
+		account = new Account();
 	}
 	
 	public long getId() {
